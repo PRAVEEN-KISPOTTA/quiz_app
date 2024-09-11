@@ -67,3 +67,27 @@ body {
   /* background-color: #0df3ff; */
   /* color: #0b1530; */
 }
+
+/******************* CategorizeApp page *********************/
+.category-container{
+  border: 1px solid black;
+  padding: 50px 30px 50px 50px;
+  border-radius:15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label{
+  /* font-family:; */
+  font-size: large;
+  /* margin-bottom: ; */
+}
+
+.input, .selector, .button{
+  height: 30px;
+  width: 90%;
+  cursor: pointer;
+  border-radius: 5px;
+  /* border: none; */
+}

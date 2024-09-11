@@ -3,7 +3,7 @@ import CategorizePage from "./component/CategorizePage";
 function App() {
   return (
     <>
-      {/* <QuizApp /> */}
+      <QuizApp />
       <CategorizePage />
     </>
   );
