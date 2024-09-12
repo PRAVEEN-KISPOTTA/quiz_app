@@ -1,4 +1,5 @@
 import React from "react";
+import ScoreChart from "./ScoreChart";
 
 export default class QuizApp extends React.Component {
     constructor(props) {
@@ -9,8 +10,11 @@ export default class QuizApp extends React.Component {
             error: null,
             selectedOption: '',
             currentQue: 0,
-            options: [] // New state to keep shuffled options
+            options: [], // New state to keep shuffled options
+            time: this.props.timeFrame
         };
+        this.currentScore = 0;
+        this.timerInterval = null;
     }
 
     componentDidMount() {
@@ -37,6 +41,9 @@ export default class QuizApp extends React.Component {
                     loading: false
                 });
             });
+
+            // Start the countdown timer when the component mounts
+            this.startTimer();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -45,6 +52,33 @@ export default class QuizApp extends React.Component {
             this.shuffleOptions();
         }
     }
+
+    componentWillUnmount() {
+        // Clear the interval when the component unmounts
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+        }
+    }
+
+    startTimer = () => {
+        this.timerInterval = setInterval(() => {
+            this.setState(prevState => {
+                if (prevState.time > 0) {
+                    return { time: prevState.time - 1 };
+                } else {
+                    clearInterval(this.timerInterval);
+                    return { time: 0 }; // Ensure time is zero when it reaches the end
+                }
+            });
+        }, 1000);
+    }
+
+    formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? `0${secs}` : secs}`;
+    }
+
 
     shuffleOptions = () => {
         const { data, currentQue } = this.state;
@@ -64,6 +98,10 @@ export default class QuizApp extends React.Component {
             isTransitioning: true // Start the transition
         });
 
+        // this.setState(prev =>({
+        //     score: option === 
+        // }))
+
         setTimeout(() => {
             this.setState(prevState => ({
                 selectedOption: '',
@@ -74,7 +112,7 @@ export default class QuizApp extends React.Component {
     }
 
     render() {
-        const { data, loading, error, selectedOption, currentQue, options } = this.state;
+        const { data, loading, error, selectedOption, currentQue, options, time } = this.state;
 
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error: {error.message}</p>;
@@ -84,9 +122,11 @@ export default class QuizApp extends React.Component {
         }
 
         const question = data.results[currentQue];
-        if (!question) return <p>No more questions</p>; // Handle case where there are no more questions
+        if (!question || time === 0) return <><ScoreChart /></> // Handle case where there are no more questions
 
         return (
+            <div className="main-container">
+            <h1 className={`timer-container ${time <= 80 ? 'alert-timer' : ''}`}>{this.formatTime(time)}</h1>
             <div className="quiz-container">
                 <div className="question-header">
                     <h2>Question {currentQue + 1}</h2>
@@ -102,6 +142,8 @@ export default class QuizApp extends React.Component {
                         let className = 'option';
                         if (isSelected && isCorrect) {
                             className += ' correct-ans'; // Correct and selected
+                            this.currentScore++;
+
                         } else if (isSelected) {
                             className += ' wrong-ans'; // Selected but wrong
                         } else if (isCorrect && selectedOption) {
@@ -119,6 +161,7 @@ export default class QuizApp extends React.Component {
                         );
                     })}
                 </div>
+            </div>
             </div>
         );
     }

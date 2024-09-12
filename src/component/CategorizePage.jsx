@@ -43,6 +43,8 @@ export default class CategorizePage extends React.Component{
                 </div>
 
                 <button className="button" onClick={handleClick}>Submit</button>
+                <div className="square"></div>
+                <div className="circle"></div>
             </div>
         )
     }

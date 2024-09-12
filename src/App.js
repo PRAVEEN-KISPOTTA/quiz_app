@@ -9,7 +9,8 @@ export default class App extends React.Component{
             numberOfQue: 10,
             selectedCategory: 9,
             selectedDifficulty: "easy",
-            isBtnClicked: false
+            isBtnClicked: false,
+            timeFrame: 240
         }
     }
 
@@ -39,14 +40,36 @@ export default class App extends React.Component{
         // console.log(this.state.selectedDifficulty);
         // console.log(this.state.numberOfQue);
     }
+
+    getTimeFrame(numberOfQue) {
+        let timeFrame;
+        switch (numberOfQue) {
+            case '20':
+                timeFrame = 180;
+                break;
+            case '30':
+                timeFrame = 270;
+                break;
+            case '40':
+                timeFrame = 360;
+                break;
+            case '50':
+                timeFrame = 450;
+                break;
+            default:
+                timeFrame = 90; // Default value
+        }
+        return timeFrame;
+    }
   render(){
-    const {numberOfQue, selectedCategory, selectedDifficulty, isBtnClicked} = this.state;
+    const {numberOfQue, selectedCategory, selectedDifficulty, isBtnClicked, timeFrame} = this.state;
     return(
       <>
         {isBtnClicked ? 
               <QuizApp  numberOfQue={numberOfQue}
                         selectedCategory={selectedCategory}
                         selectedDifficulty={selectedDifficulty}
+                        timeFrame={this.getTimeFrame(numberOfQue)}
               /> : 
               <CategorizePage numberOfQue={numberOfQue}
                               selectedCategory={selectedCategory}
