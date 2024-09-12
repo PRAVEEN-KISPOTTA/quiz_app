@@ -91,3 +91,11 @@ label{
   border-radius: 5px;
   /* border: none; */
 }
+
+.correct-ans{
+  background-color: green;
+}
+
+.wrong-ans{
+  background-color: red;
+}
