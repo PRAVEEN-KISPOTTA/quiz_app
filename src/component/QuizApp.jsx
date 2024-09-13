@@ -122,11 +122,17 @@ export default class QuizApp extends React.Component {
         }
 
         const question = data.results[currentQue];
-        if (!question || time === 0) return <><ScoreChart /></> // Handle case where there are no more questions
+        if (!question || time === 0) return <><ScoreChart correctAns={this.currentScore/2}
+                                                            totalQue={this.props.numberOfQue}
+                                                            attemptedQue={currentQue}
+                                                            selectedCategory={this.props.selectedCategory}
+                                                            selectedDifficulty={this.props.selectedDifficulty}
+                                                            selectedCategoryName={this.props.selectedCategoryName}
+        /></> // Handle case where there are no more questions
 
         return (
             <div className="main-container">
-            <h1 className={`timer-container ${time <= 80 ? 'alert-timer' : ''}`}>{this.formatTime(time)}</h1>
+            <h1 className={`timer-container ${time <= 20 ? 'alert-timer' : ''}`}>{this.formatTime(time)}</h1>
             <div className="quiz-container">
                 <div className="question-header">
                     <h2>Question {currentQue + 1}</h2>

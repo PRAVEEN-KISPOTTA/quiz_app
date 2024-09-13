@@ -10,7 +10,8 @@ export default class App extends React.Component{
             selectedCategory: 9,
             selectedDifficulty: "easy",
             isBtnClicked: false,
-            timeFrame: 240
+            timeFrame: 240,
+            selectedCategoryName: 'General Knowledge'
         }
     }
 
@@ -18,11 +19,13 @@ export default class App extends React.Component{
         this.setState({
             numberOfQue: e.target.value
         })
+        
     }
 
     handleCategory = (e)=>{
         this.setState({
-            selectedCategory: e.target.value
+            selectedCategory: e.target.value,
+            selectedCategoryName: e.target[e.target.selectedIndex].textContent
         })
     }
 
@@ -62,7 +65,7 @@ export default class App extends React.Component{
         return timeFrame;
     }
   render(){
-    const {numberOfQue, selectedCategory, selectedDifficulty, isBtnClicked, timeFrame} = this.state;
+    const {numberOfQue, selectedCategory, selectedDifficulty, isBtnClicked, selectedCategoryName} = this.state;
     return(
       <>
         {isBtnClicked ? 
@@ -70,6 +73,7 @@ export default class App extends React.Component{
                         selectedCategory={selectedCategory}
                         selectedDifficulty={selectedDifficulty}
                         timeFrame={this.getTimeFrame(numberOfQue)}
+                        selectedCategoryName={selectedCategoryName}
               /> : 
               <CategorizePage numberOfQue={numberOfQue}
                               selectedCategory={selectedCategory}

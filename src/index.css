@@ -21,6 +21,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100vw;
 }
 
 .main-container{
@@ -95,7 +96,7 @@ body {
 }
 
 /******************* CategorizeApp page *********************/
-.category-container{
+.category-container, .scoreChart-container{
   /* border: 0px solid black; */
   padding: 50px 30px 50px 50px;
   border-radius: 20px;
@@ -198,4 +199,20 @@ label{
   100% {
       transform: scale(1);
   }
+}
+
+/******************* Score Chart *********************/
+.scoreChart-container{
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  padding: 20px 0px;
+  gap: 20px;
+}
+
+.score-title{
+  margin-bottom: 20px;
 }
