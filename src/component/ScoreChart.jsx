@@ -52,7 +52,7 @@ export default class ScoreChart extends Component {
     }
 
     render() {
-        const {correctAns, totalQue, selectedCategory, selectedDifficulty, selectedCategoryName} = this.props
+        const {correctAns, totalQue, selectedDifficulty, selectedCategoryName} = this.props
         console.log(this.props.correctAns, this.props.totalQue);
         return (
             <div className="scoreChart-container">
